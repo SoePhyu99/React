@@ -1,15 +1,10 @@
-import ListGroup from "./components/ListGroup";
-
+import Alert from "./components/Alert";
 function App() {
-	let items = ["Tokyo", "Paris", "New York", "London", "Yangoon"];
-	let handleSelectItem = (item: String) => console.log(item);
 	return (
 		<div>
-			<ListGroup
-				items={items}
-				heading={"Cities"}
-				onSelectItem={handleSelectItem}
-			/>
+			<Alert>
+				Hello World <span>by Me</span>
+			</Alert>
 		</div>
 	);
 }
