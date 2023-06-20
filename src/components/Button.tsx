@@ -1,8 +1,20 @@
-const Button = () => {
+import { useState } from "react";
+
+interface Props {
+	children: string;
+	color?: "primary" | "dark" | "secondary";
+	onClick: () => void;
+}
+
+const Button = ({ children, color = "primary", onClick }: Props) => {
 	return (
 		<>
-			<button type="button" className="btn btn-primary">
-				Primary
+			<button
+				type="button"
+				className={"btn btn-" + color}
+				onClick={onClick}
+			>
+				{children}
 			</button>
 		</>
 	);
