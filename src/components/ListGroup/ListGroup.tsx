@@ -1,9 +1,10 @@
 import { useState } from "react";
+import "./ListGroup.css";
 
 interface Props {
-	items: String[];
-	heading: String;
-	onSelectItem: (item: String) => void;
+	items: string[];
+	heading: string;
+	onSelectItem: (item: string) => void;
 }
 function ListGroup({ items, heading, onSelectItem }: Props) {
 	let [selectedIndex, setSelectedIndex] = useState(-1);
