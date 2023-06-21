@@ -1,10 +1,10 @@
 import { useState } from "react";
-import ExpandableText from "./components/ExpandableText";
+import Forms from "./components/Forms";
 
 function App() {
 	return (
 		<>
-			<ExpandableText ends={10}></ExpandableText>
+			<Forms />
 		</>
 	);
 }
