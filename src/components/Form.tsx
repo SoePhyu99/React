@@ -1,15 +1,12 @@
-import React, { FormEvent, useRef } from "react";
+import React, { FormEvent, useRef, useState } from "react";
 
 const Form = () => {
-	const nameRef = useRef<HTMLInputElement>(null);
-	const ageRef = useRef<HTMLInputElement>(null);
-	const person = { name: "", age: 0 };
+	const [person, setPerson] = useState({
+		name: "",
+		age: "",
+	});
 	const handleSubmit = (e: FormEvent) => {
 		e.preventDefault();
-		if (nameRef.current !== null) person.name = nameRef.current.value;
-		if (ageRef.current !== null)
-			person.age = parseInt(ageRef.current.value);
-
 		console.log(person);
 	};
 	return (
@@ -19,7 +16,10 @@ const Form = () => {
 					Name
 				</label>
 				<input
-					ref={nameRef}
+					value={person.name}
+					onChange={(e) =>
+						setPerson({ ...person, name: e.target.value })
+					}
 					id="name"
 					type="text"
 					className="form-control"
@@ -30,7 +30,10 @@ const Form = () => {
 					Age
 				</label>
 				<input
-					ref={ageRef}
+					value={person.age}
+					onChange={(e) =>
+						setPerson({ ...person, age: parseInt(e.target.value) })
+					}
 					id="age"
 					type="number"
 					className="form-control"
