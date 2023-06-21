@@ -1,4 +1,4 @@
-import { useState } from "react";
+import styles from "./Button.module.css";
 
 interface Props {
 	children: string;
@@ -11,7 +11,7 @@ const Button = ({ children, color = "primary", onClick }: Props) => {
 		<>
 			<button
 				type="button"
-				className={"btn btn-" + color}
+				className={[styles.btn, styles["btn-" + color]].join(" ")}
 				onClick={onClick}
 			>
 				{children}
