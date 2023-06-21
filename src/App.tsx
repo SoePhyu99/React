@@ -1,13 +1,21 @@
 import { useState } from "react";
-import Navbar from "./components/Navbar";
-import Cart from "./components/Cart";
 
 function App() {
-	let [product, setProduct] = useState(["product1", "product2"]);
+	const [game, setGame] = useState({
+		id: 1,
+		player: {
+			name: "John",
+		},
+	});
+	const handle = () => {
+		setGame({ ...game, player: { ...game.player, name: "Bob" } });
+	};
 	return (
 		<>
-			<Navbar itemsCount={product.length}></Navbar>
-			<Cart items={product} onClear={() => setProduct([])}></Cart>
+			<h2>Game ID : {game.id}</h2>
+			<p>Player Name : {game.player.name}</p>
+
+			<button onClick={handle}>Change</button>
 		</>
 	);
 }
