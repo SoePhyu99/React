@@ -1,8 +1,13 @@
-import Like from "./components/like";
+import { useState } from "react";
+import Navbar from "./components/Navbar";
+import Cart from "./components/Cart";
+
 function App() {
+	let [product, setProduct] = useState(["product1", "product2"]);
 	return (
 		<>
-			<Like onClick={() => console.log("clicked")}></Like>
+			<Navbar itemsCount={product.length}></Navbar>
+			<Cart items={product} onClear={() => setProduct([])}></Cart>
 		</>
 	);
 }
