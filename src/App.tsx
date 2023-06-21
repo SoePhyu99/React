@@ -1,10 +1,9 @@
-import { useState } from "react";
-import Forms from "./components/Forms";
+import Form from "./components/Form";
 
 function App() {
 	return (
 		<>
-			<Forms />
+			<Form />
 		</>
 	);
 }
