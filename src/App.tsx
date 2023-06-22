@@ -34,12 +34,28 @@ function App() {
 	}, []);
 
 	let deleteUser = (user: User) => {
+		let originalUser = [...state];
 		setState(state.filter((u) => u.id !== user.id));
 		axios
-			.delete("https://jsonplaceholder.typicode.com/xusers/" + user.id)
+			.delete("https://jsonplaceholder.typicode.com/users/" + user.id)
 			.catch((err) => {
 				setError(err.message);
-				setState([...state]);
+				setState(originalUser);
+			});
+	};
+
+	let addUser = () => {
+		let originalUser = [...state];
+		let user = { id: 11, name: "Mosh" };
+		setState([...state, user]);
+		axios
+			.post("https://jsonplaceholder.typicode.com/susers", user)
+			.then(({ data }) => {
+				setState([...state, data]);
+			})
+			.catch((e) => {
+				setError(e.message);
+				setState(originalUser);
 			});
 	};
 
@@ -48,6 +64,9 @@ function App() {
 			{load && <div className="spinner-border"></div>}
 			{error && <p className="text-danger">{error}</p>}
 			<ul className="list-group m-3">
+				<button onClick={addUser} className="btn mb-3 btn-dark">
+					Add
+				</button>
 				{state.map((item) => (
 					<li
 						key={item.id}
