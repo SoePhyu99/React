@@ -49,12 +49,28 @@ function App() {
 		let user = { id: 11, name: "Mosh" };
 		setState([...state, user]);
 		axios
-			.post("https://jsonplaceholder.typicode.com/susers", user)
+			.post("https://jsonplaceholder.typicode.com/users", user)
 			.then(({ data }) => {
 				setState([...state, data]);
 			})
 			.catch((e) => {
 				setError(e.message);
+				setState(originalUser);
+			});
+	};
+
+	let updateUser = (user: User) => {
+		let originalUser = [...state];
+		let update = { ...user, name: user.name + " !" };
+		setState(state.map((u) => (u.id === user.id ? update : u)));
+
+		axios
+			.patch(
+				"https://jsonplaceholder.typicode.com/users/" + user.id,
+				update
+			)
+			.catch((err) => {
+				setError(err.message);
 				setState(originalUser);
 			});
 	};
@@ -73,12 +89,20 @@ function App() {
 						className="list-group-item d-flex justify-content-between pt-3"
 					>
 						{item.name}
-						<button
-							className="btn btn-outline-danger"
-							onClick={() => deleteUser(item)}
-						>
-							<i className="bi bi-trash"></i>
-						</button>
+						<div>
+							<button
+								className="btn btn-outline-secondary me-3"
+								onClick={() => updateUser(item)}
+							>
+								<i className="bi bi-pencil-square"></i>
+							</button>
+							<button
+								className="btn btn-outline-danger"
+								onClick={() => deleteUser(item)}
+							>
+								<i className="bi bi-trash"></i>
+							</button>
+						</div>
 					</li>
 				))}
 			</ul>
