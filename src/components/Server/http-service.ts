@@ -1,4 +1,4 @@
-import ApiClient from "./Api-client";
+import ApiClient from "./api-client";
 
 interface Entity{
     id: number;
