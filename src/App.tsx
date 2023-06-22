@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { CanceledError } from "./components/Server/Api-client";
 import userService, { User } from "./components/Server/user-service";
 
@@ -8,7 +8,7 @@ function App() {
 	let [load, setLoad] = useState(false);
 	useEffect(() => {
 		setLoad(true);
-		let { request, cancel } = userService.getAllUser();
+		let { request, cancel } = userService.getAll<User>();
 		request
 			.then((res) => {
 				setState(res.data);
@@ -29,7 +29,7 @@ function App() {
 		let originalUser = [...state];
 		setState(state.filter((u) => u.id !== user.id));
 
-		let request = userService.deleteUser(user.id);
+		let request = userService.delete(user.id);
 		request.catch((err) => {
 			setError(err.message);
 			setState(originalUser);
@@ -40,7 +40,7 @@ function App() {
 		let originalUser = [...state];
 		let user = { id: 11, name: "Mosh" };
 		setState([...state, user]);
-		let request = userService.postUser(user);
+		let request = userService.post(user);
 		request
 			.then(({ data }) => {
 				setState([...state, data]);
@@ -56,7 +56,7 @@ function App() {
 		let update = { ...user, name: user.name + " !" };
 		setState(state.map((u) => (u.id === user.id ? update : u)));
 
-		let request = userService.patchUser(update);
+		let request = userService.patch(update);
 		request.catch((err) => {
 			setError(err.message);
 			setState(originalUser);
